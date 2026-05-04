@@ -4,14 +4,26 @@ Companion to [`SKILL.md`](SKILL.md). Contracts, gates, status rules, and roadmap
 
 ---
 
+## Progress tracking preference (before Phase 0 roadmap)
+
+**Before** you run Phase 0 (`superpowers:brainstorming` for the roadmap), **ask** the user **exactly**:
+
+> Do you want a **real-time record** of implementation progress: per-phase checklist files `docs/roadmaps/<feature>/phase-<N>-todos.md`, structured from each phase’s **approved plan** and updated as work proceeds? Reply **yes** or **no**.  
+> If **no**, the roadmap will record that choice so we do **not** create `phase-*-todos.md` files.
+
+**Wait** for an answer, then include a **Progress tracking** line in the roadmap (see **Roadmap document** below): either **enabled** (and optional link column to each phase’s todo file) or **declined** with a short note that per-phase todo files must not be generated.
+
+---
+
 ## Phase 0 — brainstorming contract (roadmap only)
 
 When producing the **first** artifact for a PDD feature:
 
-1. Announce: *Using `superpowers:brainstorming` to produce the **roadmap only** (PDD Phase 0).*
-2. **Deliverable:** `docs/roadmaps/<feature>-roadmap.md` only — follow the **Roadmap document** section below (use the template slot until your team pastes a full table).
-3. **Do not** invoke `writing-plans` for the **entire** feature in this step.
-4. **Do not** write `docs/superpowers/specs/...` for individual phases yet — that starts **after roadmap OK**.
+1. **Already asked** progress-tracking preference (section above); roadmap will include the **Progress tracking** line.
+2. Announce: *Using `superpowers:brainstorming` to produce the **roadmap only** (PDD Phase 0).*
+3. **Deliverable:** `docs/roadmaps/<feature>-roadmap.md` only — follow the **Roadmap document** section below (use the template slot until your team pastes a full table).
+4. **Do not** invoke `writing-plans` for the **entire** feature in this step.
+5. **Do not** write `docs/superpowers/specs/...` for individual phases yet — that starts **after roadmap OK**.
 
 After the file exists, run the **Roadmap OK gate** (below).
 
@@ -82,6 +94,11 @@ Ready to proceed with Phase <N> implementation? (yes / changes / no)
 
 **Author note:** Replace the **Template slot** subsection below with your team’s full roadmap table when ready. Extend the minimal example with any columns (e.g. **Todos**, links) your process needs.
 
+**Progress tracking (required line in every PDD roadmap):** record the user’s choice from [Progress tracking preference](#progress-tracking-preference-before-phase-0-roadmap).
+
+- **Enabled example:** `**Progress tracking:** enabled — per-phase files at docs/roadmaps/<feature>/phase-<N>-todos.md`
+- **Declined example:** `**Progress tracking:** declined — do not create phase-*-todos.md files`
+
 ### Template slot (minimal example — replace with your canonical table)
 
 Use this shape until you paste the full template:
@@ -91,6 +108,7 @@ Use this shape until you paste the full template:
 
 **Goal:** <one sentence>
 **Owner:** <team>  **Started:** <YYYY-MM-DD>
+**Progress tracking:** <enabled — path pattern above | declined — no phase-*-todos.md>
 
 ## Phases
 
@@ -112,7 +130,25 @@ Roadmap approved <YYYY-MM-DD> (after user says roadmap OK.)
 - <item>
 ```
 
-Adjust columns to match your process (e.g. add links columns you need). **Todos** column is optional — PDD does not mandate per-phase todo files.
+Adjust columns to match your process (e.g. add a **Todos** link column when progress tracking is **enabled**). When **declined**, omit that column or leave it **—**.
+
+---
+
+## Per-phase `phase-<N>-todos.md` (when progress tracking is enabled)
+
+**Path:** `docs/roadmaps/<feature>/phase-<N>-todos.md` (same `<feature>` as the roadmap file name prefix).
+
+**When:** Create or refresh **after** the user approves the phase plan (not before), so the file matches the **approved** plan.
+
+**Format:** Mirror the **phase plan** document for that phase:
+
+- Same **section headings** and **task order** as the plan’s implementation steps (or a one-to-one checklist derived from them).
+- Use `- [ ]` / `- [x]` for tasks; optional short sub-bullets for notes or blockers.
+- Top of file: link to the phase **plan** and **spec**; **Updated** date when you make meaningful progress.
+
+**While implementing:** Check items off, add brief notes, and keep the file consistent with the plan. If the plan is revised per [Mid-phase scope changes](#mid-phase-scope-changes), update this file to match.
+
+**When progress tracking is declined:** Do **not** create these files.
 
 ---
 
