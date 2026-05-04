@@ -1,6 +1,6 @@
 ---
 name: phase-driven-development
-description: Use when a feature qualifies as "large enough" — 2+ new persistence schemas (tables, collections, stores), 2+ new user-facing surfaces (pages, endpoints, screens, CLI commands), background work (queue jobs, workers, cron, scheduled tasks), spans multiple modules/domains, or has a natural multi-phase rollout. Stack-agnostic. Activate before any planning, coding, or file creation begins.
+description: Use when a feature qualifies for phasing — 2+ new persistence schemas (tables, collections, stores), 2+ new user-facing surfaces (pages, endpoints, screens, CLI commands), background work (queue jobs, workers, cron, scheduled tasks), spans multiple modules/domains, or has a natural multi-phase rollout. Stack-agnostic. Activate before any planning, coding, or file creation begins.
 ---
 
 # Phase-Driven Development
@@ -13,15 +13,16 @@ Complex features are built in phases. Each phase follows a full brainstorm → s
 
 ## When to Use
 
-A feature is large enough if it meets **2 or more** of:
+A feature qualifies for phasing if it meets **2 or more** of:
 
 - 2+ new persistence schemas (DB tables, collections, key-value stores, files)
 - 2+ new user-facing surfaces (HTTP endpoints, pages, screens, CLI commands, public functions)
 - Background work (queue jobs, workers, cron, scheduled tasks, daemons)
 - Spans multiple modules, services, or domains
 - Has a natural multi-phase rollout (e.g. backend first, then UI; data layer first, then API)
+- Make sure to ask the user for permission before applying this skill
 
-If unsure, **treat it as large enough**.
+If unsure, **ask user wether to make the development phase driven**.
 
 ## The Cycle (per phase)
 
