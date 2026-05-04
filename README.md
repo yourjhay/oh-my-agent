@@ -6,7 +6,7 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 
 | Artifact | Type | Purpose |
 |----------|------|---------|
-| [`skills/phase-driven-development-v2/SKILL.md`](skills/phase-driven-development-v2/SKILL.md) | Claude Code skill | **PDD** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`skills/phase-driven-development-v2/reference.md`](skills/phase-driven-development-v2/reference.md). |
+| [`skills/phase-driven-development/SKILL.md`](skills/phase-driven-development/SKILL.md) | Claude Code skill | **PDD** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`skills/phase-driven-development/reference.md`](skills/phase-driven-development/reference.md). |
 | [`prompts/SELF-MAINTAIN-DOC-PROMPT.MD`](prompts/SELF-MAINTAIN-DOC-PROMPT.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
 | [`rules/QA_RULES.md`](rules/QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
 
@@ -34,7 +34,7 @@ Repo: https://github.com/yourjhay/oh-my-agent
 Raw base: https://raw.githubusercontent.com/yourjhay/oh-my-agent/main
 
 Artifacts:
-1. SKILL — `skills/phase-driven-development-v2/SKILL.md` + `skills/phase-driven-development-v2/reference.md` (PDD; install both into the same skills subfolder)
+1. SKILL — `skills/phase-driven-development/SKILL.md` + `skills/phase-driven-development/reference.md` (PDD; install both into the same skills subfolder)
 2. RULE FILE — `rules/QA_RULES.md`
 3. ONE-SHOT PROMPT — `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`
 
@@ -56,7 +56,7 @@ Steps you must perform:
    - opencode per-project: skills → `.opencode/skills/` (or `.claude/skills/`), rules → project root, instruction file → `./AGENTS.md`
 
 4. For each artifact, fetch from the raw base URL and write to disk:
-   a. PDD skill → `<skills-dir>/phase-driven-development-v2/SKILL.md` and `<skills-dir>/phase-driven-development-v2/reference.md` (repo: `skills/phase-driven-development-v2/`)
+   a. PDD skill → `<skills-dir>/phase-driven-development/SKILL.md` and `<skills-dir>/phase-driven-development/reference.md` (repo: `skills/phase-driven-development/`)
    b. RULE FILE → `<rules-dir>/qa-rules.md` (source path in repo: `rules/QA_RULES.md`)
    c. ONE-SHOT PROMPT → save as `<scope-root>/SELF-MAINTAIN-DOC-PROMPT.MD` for later reference (source: `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`); do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
 
@@ -67,7 +67,7 @@ Steps you must perform:
    - If the instruction file does not exist, create it with the import line.
 
 6. Verify each file:
-   - Both SKILL.md and reference.md exist under `phase-driven-development-v2/` with YAML frontmatter on SKILL.md
+   - Both SKILL.md and reference.md exist under `phase-driven-development/` with YAML frontmatter on SKILL.md
    - qa-rules.md is non-empty
    - Instruction file contains the import line
 
@@ -92,34 +92,34 @@ After pasting, answer the agent's "global vs per-project" question and let it ru
 
 Pick one method per artifact. Skills must be files; one-shot prompts can be pasted.
 
-#### B1. `phase-driven-development-v2` skill (PDD)
+#### B1. `phase-driven-development` skill (PDD)
 
 Install **both** `SKILL.md` and `reference.md` into the same skills subfolder:
 
 ```bash
-mkdir -p ~/.claude/skills/phase-driven-development-v2
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/SKILL.md \
-  -o ~/.claude/skills/phase-driven-development-v2/SKILL.md
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/reference.md \
-  -o ~/.claude/skills/phase-driven-development-v2/reference.md
+mkdir -p ~/.claude/skills/phase-driven-development
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/SKILL.md \
+  -o ~/.claude/skills/phase-driven-development/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/reference.md \
+  -o ~/.claude/skills/phase-driven-development/reference.md
 ```
 
 **Per-project:**
 
 ```bash
-mkdir -p .claude/skills/phase-driven-development-v2
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/SKILL.md \
-  -o .claude/skills/phase-driven-development-v2/SKILL.md
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/reference.md \
-  -o .claude/skills/phase-driven-development-v2/reference.md
+mkdir -p .claude/skills/phase-driven-development
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/SKILL.md \
+  -o .claude/skills/phase-driven-development/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/reference.md \
+  -o .claude/skills/phase-driven-development/reference.md
 ```
 
 **opencode-native paths** (optional):
 
 | Scope | Path |
 |-------|------|
-| Global | `~/.config/opencode/skills/phase-driven-development-v2/` |
-| Per-project | `.opencode/skills/phase-driven-development-v2/` |
+| Global | `~/.config/opencode/skills/phase-driven-development/` |
+| Per-project | `.opencode/skills/phase-driven-development/` |
 
 **Verify:**
 - Claude Code: `pdd` / phase-driven skill should appear where your harness lists skills.
@@ -242,7 +242,7 @@ oh-my-agent/
 ├── rules/
 │   └── QA_RULES.md
 ├── skills/
-│   └── phase-driven-development-v2/
+│   └── phase-driven-development/
 │       ├── README.md
 │       ├── SKILL.md
 │       └── reference.md
