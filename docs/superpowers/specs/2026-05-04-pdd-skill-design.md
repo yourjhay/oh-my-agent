@@ -114,10 +114,10 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 
 ## Acceptance criteria
 
-- [ ] Design doc (this file) committed under `docs/superpowers/specs/`.
-- [ ] Implementation adds `pdd/SKILL.md` (or agreed directory name) + `reference.md`, implements Phase 0 contract, roadmap OK gate, per-phase delegation, and **mandatory roadmap status updates** (G7).
-- [ ] Main `SKILL.md` stays short; templates not duplicated in full in the main file.
-- [ ] Explicit **roadmap OK** question appears in reference as copy-paste text.
+- [x] Design doc (this file) committed under `docs/superpowers/specs/`.
+- [x] Implementation adds `pdd/SKILL.md` + `reference.md`, implements Phase 0 contract, roadmap OK gate, per-phase delegation, and **mandatory roadmap status updates** (G7).
+- [x] Main `SKILL.md` stays short (85 lines); full template in `reference.md` only.
+- [x] Explicit **roadmap OK** question appears in reference as copy-paste text.
 
 ---
 
