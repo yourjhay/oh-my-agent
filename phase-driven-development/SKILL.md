@@ -255,10 +255,12 @@ This skill links to those artifacts in the roadmap row. Do not duplicate or over
 
 ## Phases
 
-| Phase | Title | Status | Spec | Plan | Todos | PR | Updated |
-|-------|-------|--------|------|------|-------|----|---------|
-| 1 | <title> | planned | — | — | — | — | <YYYY-MM-DD> |
-| 2 | <title> | planned | — | — | — | — | <YYYY-MM-DD> |
+| Phase | Title | Status | Spec | Plan | Todos | Visual | PR | Updated |
+|-------|-------|--------|------|------|-------|--------|----|---------|
+| 1 | <title> | planned | — | — | — | — | — | <YYYY-MM-DD> |
+| 2 | <title> | planned | — | — | — | — | — | <YYYY-MM-DD> |
+
+> **Visual** column is optional. Populate only when user requests a visual artifact (generated HTML, PDF, image, diagram). Path convention: `docs/roadmaps/<feature>/phase<N>-visual.<ext>` (or list multiple). Leave `—` otherwise.
 
 ## Phase Notes
 
