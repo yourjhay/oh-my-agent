@@ -40,7 +40,7 @@ If unclear, **ask** whether to use PDD. Do **not** skip this skill when criteria
    - **Plan:** `superpowers:writing-plans` → `docs/superpowers/plans/<date>-<feature>.md` (add `-phase<N>` when useful).  
    - **Plan approval** — Post Approval Ask ([`reference.md`](reference.md)); wait for explicit yes.  
    - **Implement** — TDD / `executing-plans` / `subagent-driven-development` per project norms.  
-   - **Verify** — `verification-before-completion` before claiming done.  
+   - **Verify** — `verification-before-completion, requesting-code-review ` before claiming done.  
    - **Merge** — `finishing-a-development-branch`; then **immediately** update the roadmap row for this phase (**merged**, PR link if column exists, `Updated`, spec/plan links).  
    - **Advance roadmap row during the phase** — When spec exists, plan exists, user approved plan, PR open — set Status per [`reference.md`](reference.md) transition rules.
 5. **Next phase** — Only after current phase is **merged** and roadmap reflects it.
@@ -56,7 +56,7 @@ On failure while implementing: **`systematic-debugging`** before guessing fixes.
 | Phase spec | `superpowers:brainstorming` | `docs/superpowers/specs/...-design.md` |
 | Phase plan | `superpowers:writing-plans` | `docs/superpowers/plans/...md` |
 | Implement | TDD / `executing-plans` / `subagent-driven-development` | Code |
-| Verify | `verification-before-completion` | Evidence |
+| Verify | `verification-before-completion, requesting-code-review ` | Evidence |
 | Merge | `finishing-a-development-branch` | PR merged |
 | Roadmap status | **PDD (required)** | Update roadmap file on transitions + after each merge |
 | Debug | `systematic-debugging` | — |
