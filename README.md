@@ -239,6 +239,8 @@ oh-my-agent/
 ├── pdd/
 │   ├── SKILL.md
 │   └── reference.md
+├── phase-driven-development-v2/
+│   └── README.md
 ├── phase-driven-development/
 │   └── SKILL.md
 ├── SELF-MAINTAIN-DOC-PROMPT.MD
