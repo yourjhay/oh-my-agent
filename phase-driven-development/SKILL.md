@@ -83,7 +83,7 @@ Classify the change:
 
 ## Skill Interop
 
-This skill orchestrates the phase loop. It delegates each step to a focused superpowers skill. If superpowers unavailable, fall back to manual execution of the same step.
+This skill orchestrates the phase loop. It delegates each step to a focused superpowers skill. If superpowers unavailable, use the **Fallback Mini-Procedures** below.
 
 | Cycle Step | Skill | Output |
 |------------|-------|--------|
@@ -107,7 +107,41 @@ Delegated skills do **not** know about this skill's roadmap or per-phase todos f
 - Update happens **at every transition**, even when superpowers handled the actual work.
 - Announce handoffs: "Using `<skill>` to <purpose>." On return: "Updating roadmap row / todos."
 
-**Fallback (no superpowers):** use the templates in this skill, run TDD manually, verify before claiming done. Bookkeeping rule unchanged — update roadmap/todos at each transition.
+**Fallback (no superpowers):** see **Fallback Mini-Procedures** below for brainstorm/TDD/verification/debugging/finishing. Bookkeeping rule unchanged — update roadmap/todos at each transition.
+
+## Fallback Mini-Procedures
+
+Use these only if the corresponding superpowers skill is unavailable. They are minimum-viable procedures, not replacements for full skill discipline.
+
+### Brainstorm (fallback)
+1. State the user's intent in one sentence.
+2. List 2–3 candidate approaches with one-line tradeoffs.
+3. List open questions (each blocks spec writing).
+4. Resolve open questions with the user before writing the spec.
+
+### TDD per task (fallback)
+1. **Red:** write a failing test that names the new behavior.
+2. **Green:** write the smallest implementation that passes.
+3. **Refactor:** clean up without changing behavior; test must still pass.
+4. Commit.
+
+### Verification before claiming done (fallback)
+1. Run the relevant test suite — paste the pass output.
+2. Run the feature/path end-to-end (CLI, page, API call) — paste evidence.
+3. Run lint/typecheck — paste clean output.
+4. Only after all three pass, mark phase tasks done.
+
+### Systematic debugging (fallback)
+1. Reproduce the failure on a clean run; capture exact error.
+2. Bisect — git or manual — to the smallest change that introduced it.
+3. Form a hypothesis. Test the hypothesis (don't guess-fix).
+4. Fix, then add a regression test.
+
+### Finishing the phase (fallback)
+1. Confirm Done checklist (Phase Sizing & Done).
+2. Open PR; reference roadmap row + spec + plan.
+3. Address review feedback; do not silently expand scope (see Mid-Phase Scope Changes).
+4. Merge to main; update roadmap row to `merged`; freeze todos file.
 
 ## Progress Tracking (Roadmap as State File)
 
@@ -197,7 +231,7 @@ If superpowers skills are available, use them as the source of truth:
 
 This skill links to those artifacts in the roadmap row. Do not duplicate or override their formats.
 
-**Fallback** (only if superpowers unavailable):
+**Fallback** (only if superpowers unavailable) — for the *process* of producing these docs, see **Fallback Mini-Procedures** (Brainstorm + TDD). Doc shape:
 
 ```markdown
 # Spec: <feature> Phase <N>

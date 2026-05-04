@@ -6,7 +6,7 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 
 | Artifact | Type | Purpose |
 |----------|------|---------|
-| [`phase-driven-development/SKILL.md`](phase-driven-development/SKILL.md) | Claude Code skill | Orchestrates features that qualify for phasing through a brainstorm → spec → plan → approval-gate → implement cycle, with resumable state via a roadmap file and per-phase todos. |
+| [`phase-driven-development/SKILL.md`](phase-driven-development/SKILL.md) | Claude Code skill | Orchestrates features that qualify for phasing through a brainstorm → spec → plan → approval-gate → implement cycle, with resumable state via a roadmap file and per-phase todos. Delegates each step to [superpowers](https://claude.com/plugins/superpowers) when installed; ships with built-in fallback procedures otherwise. |
 | [`SELF-MAINTAIN-DOCUMENTATION.MD`](SELF-MAINTAIN-DOCUMENTATION.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
 | [`QA_RULES.md`](QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
 
@@ -48,6 +48,18 @@ curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-dri
 **Verify:**
 - Claude Code: trigger any feature-planning prompt — `phase-driven-development` should appear in the available-skills list.
 - opencode: the `skill` tool will list it; agents can invoke it on-demand.
+
+#### Recommended companion: `superpowers`
+
+The skill delegates to `superpowers:*` skills (brainstorming, writing-plans, test-driven-development, executing-plans, subagent-driven-development, verification-before-completion, systematic-debugging, finishing-a-development-branch). With superpowers installed, each phase step runs the focused skill that owns that practice. Without it, `phase-driven-development` falls back to its own minimum-viable mini-procedures and keeps working — just with less depth.
+
+Install superpowers (Claude Code):
+
+```bash
+/plugin install superpowers@claude-plugins-official
+```
+
+Source: [superpowers on the Claude plugin marketplace](https://claude.com/plugins/superpowers) · GitHub: [obra/superpowers](https://github.com/obra/superpowers) (by [@obra](https://github.com/obra)).
 
 ### 2. `SELF-MAINTAIN-DOCUMENTATION.MD` (paste prompt)
 
