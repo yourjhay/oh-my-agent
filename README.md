@@ -7,7 +7,7 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 | Artifact | Type | Purpose |
 |----------|------|---------|
 | [`phase-driven-development/SKILL.md`](phase-driven-development/SKILL.md) | Claude Code skill | Orchestrates features that qualify for phasing through a brainstorm → spec → plan → approval-gate → implement cycle, with resumable state via a roadmap file and per-phase todos. Delegates each step to [superpowers](https://claude.com/plugins/superpowers) when installed; ships with built-in fallback procedures otherwise. |
-| [`SELF-MAINTAIN-DOCUMENTATION.MD`](SELF-MAINTAIN-DOCUMENTATION.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
+| [`SELF-MAINTAIN-DOC-PROMPT.MD`](SELF-MAINTAIN-DOC-PROMPT.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
 | [`QA_RULES.md`](QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
 
 ---
@@ -36,7 +36,7 @@ Raw base: https://raw.githubusercontent.com/yourjhay/oh-my-agent/main
 Artifacts:
 1. SKILL — `phase-driven-development/SKILL.md`
 2. RULE FILE — `QA_RULES.md`
-3. ONE-SHOT PROMPT — `SELF-MAINTAIN-DOCUMENTATION.MD`
+3. ONE-SHOT PROMPT — `SELF-MAINTAIN-DOC-PROMPT.MD`
 
 Steps you must perform:
 
@@ -58,7 +58,7 @@ Steps you must perform:
 4. For each artifact, fetch from the raw base URL and write to disk:
    a. SKILL → `<skills-dir>/phase-driven-development/SKILL.md` (preserve the directory name)
    b. RULE FILE → `<rules-dir>/qa-rules.md`
-   c. ONE-SHOT PROMPT → save as `<scope-root>/self-maintain-documentation.md` for later reference; do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
+   c. ONE-SHOT PROMPT → save as `<scope-root>/SELF-MAINTAIN-DOC-PROMPT.MD` for later reference; do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
 
 5. Wire up the rule file by appending an import line to the instruction file (CLAUDE.md or AGENTS.md):
    - Claude Code: append `@rules/qa-rules.md` (global) or `@.claude/rules/qa-rules.md` (per-project)
@@ -135,13 +135,13 @@ Install superpowers (Claude Code):
 
 Source: [superpowers on the Claude plugin marketplace](https://claude.com/plugins/superpowers) · GitHub: [obra/superpowers](https://github.com/obra/superpowers) (by [@obra](https://github.com/obra)).
 
-#### B2. `SELF-MAINTAIN-DOCUMENTATION.MD` (paste prompt)
+#### B2. `SELF-MAINTAIN-DOC-PROMPT.MD` (paste prompt)
 
 No file install needed. View raw, copy the contents, paste into your agent at the **root of the target project**:
 
 ```bash
 # fetch and copy to clipboard (macOS)
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/SELF-MAINTAIN-DOCUMENTATION.MD | pbcopy
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/SELF-MAINTAIN-DOC-PROMPT.MD | pbcopy
 ```
 
 Then paste into your agent and follow its instructions.
@@ -237,7 +237,7 @@ oh-my-agent/
 ├── LICENSE
 ├── phase-driven-development/
 │   └── SKILL.md
-├── SELF-MAINTAIN-DOCUMENTATION.MD
+├── SELF-MAINTAIN-DOC-PROMPT.MD
 └── QA_RULES.md
 ```
 
