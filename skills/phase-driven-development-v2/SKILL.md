@@ -1,7 +1,7 @@
 ---
 name: pdd
 description: >-
-  PDD (Phase-Driven Development v2). Use when a feature qualifies for phasing
+  PDD — Phase-Driven Development. Use when a feature qualifies for phasing
   (2+ new persistence surfaces, 2+ new user-facing surfaces, background work,
   multi-domain, or natural multi-phase rollout) and you want a roadmap-first
   workflow — brainstorm a phased roadmap, explicit roadmap approval,
@@ -9,7 +9,7 @@ description: >-
   superpowers skills. Stack-agnostic. Activate before planning or coding.
 ---
 
-# PDD — Phase-Driven Development (v2)
+# PDD — Phase-Driven Development
 
 ## Overview
 
@@ -19,7 +19,7 @@ PDD splits large work into **phases**. First pass produces only a **roadmap** do
 
 ## When to use
 
-Use when **two or more** of these apply (same spirit as `phase-driven-development` v1):
+Use when **two or more** of these apply:
 
 - 2+ new persistence shapes (tables, collections, stores, files)
 - 2+ new user-facing surfaces (APIs, pages, screens, CLI)
@@ -80,6 +80,6 @@ Read it whenever executing PDD:
 - Roadmap document **shape** and **template slot** (you may replace with your full table later).
 - Per-phase brainstorming **preamble**.
 - Optional **visuals** paths.
-- **Mid-phase scope** pointer to v1.
+- **Mid-phase scope** classification (full table in [`reference.md`](reference.md)).
 
-PDD does **not** require per-phase todo files or session mirroring; use `phase-driven-development` v1 if you want that bookkeeping.
+PDD does **not** require per-phase todo files or session mirroring; track execution however your team prefers (issue tracker, checklist, etc.).

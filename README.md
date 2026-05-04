@@ -6,8 +6,7 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 
 | Artifact | Type | Purpose |
 |----------|------|---------|
-| [`skills/phase-driven-development-v2/SKILL.md`](skills/phase-driven-development-v2/SKILL.md) | Claude Code skill | **PDD (v2)** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`skills/phase-driven-development-v2/reference.md`](skills/phase-driven-development-v2/reference.md). |
-| [`skills/phase-driven-development/SKILL.md`](skills/phase-driven-development/SKILL.md) | Claude Code skill | **v1** — Full phase cycle with resumable roadmap **and** optional per-phase todos / bookkeeping. Same superpowers delegation pattern; use when you want todo-file rituals. |
+| [`skills/phase-driven-development-v2/SKILL.md`](skills/phase-driven-development-v2/SKILL.md) | Claude Code skill | **PDD** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`skills/phase-driven-development-v2/reference.md`](skills/phase-driven-development-v2/reference.md). |
 | [`prompts/SELF-MAINTAIN-DOC-PROMPT.MD`](prompts/SELF-MAINTAIN-DOC-PROMPT.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
 | [`rules/QA_RULES.md`](rules/QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
 
@@ -17,10 +16,10 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 
 Two paths:
 
-- **A. Prompt install (easiest)** — paste one block into your agent; it detects the harness and installs everything.
+- **A. Prompt install (easiest)** — paste one block into your agent; it detects which harness you're running in, asks whether you want global or per-project install, fetches files from this repo, and wires up imports.
 - **B. Manual install (curl)** — explicit commands per artifact, full control.
 
-> Source: [`yourjhay/oh-my-agent`](https://github.com/yourjhay/oh-my-agent). Raw URL base used in commands below: `https://raw.githubusercontent.com/yourjhay/oh-my-agent/main`. To pin a specific commit instead of `main`, replace `main` with the commit SHA.
+> Source: [`yourjhay/oh-my-agent`](https://github.com/yourjhay/oh-my-agent). Raw URL base used in commands below: `https://raw.githubusercontent.com/yourjhay/oh-my-agent/main`. To pin to a specific commit instead of `main`, replace `main` with the commit SHA.
 
 ---
 
@@ -35,10 +34,9 @@ Repo: https://github.com/yourjhay/oh-my-agent
 Raw base: https://raw.githubusercontent.com/yourjhay/oh-my-agent/main
 
 Artifacts:
-1. SKILL — `skills/phase-driven-development/SKILL.md` (v1)
-2. SKILL (optional) — `skills/phase-driven-development-v2/SKILL.md` + `skills/phase-driven-development-v2/reference.md` (PDD / v2)
-3. RULE FILE — `rules/QA_RULES.md`
-4. ONE-SHOT PROMPT — `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`
+1. SKILL — `skills/phase-driven-development-v2/SKILL.md` + `skills/phase-driven-development-v2/reference.md` (PDD; install both into the same skills subfolder)
+2. RULE FILE — `rules/QA_RULES.md`
+3. ONE-SHOT PROMPT — `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`
 
 Steps you must perform:
 
@@ -58,10 +56,9 @@ Steps you must perform:
    - opencode per-project: skills → `.opencode/skills/` (or `.claude/skills/`), rules → project root, instruction file → `./AGENTS.md`
 
 4. For each artifact, fetch from the raw base URL and write to disk:
-   a. SKILL (v1) → `<skills-dir>/phase-driven-development/SKILL.md` (repo source: `skills/phase-driven-development/SKILL.md`)
-   b. SKILL (v2, optional) → `<skills-dir>/phase-driven-development-v2/SKILL.md` and `<skills-dir>/phase-driven-development-v2/reference.md` (repo: `skills/phase-driven-development-v2/`)
-   c. RULE FILE → `<rules-dir>/qa-rules.md` (source path in repo: `rules/QA_RULES.md`)
-   d. ONE-SHOT PROMPT → save as `<scope-root>/SELF-MAINTAIN-DOC-PROMPT.MD` for later reference (source: `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`); do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
+   a. PDD skill → `<skills-dir>/phase-driven-development-v2/SKILL.md` and `<skills-dir>/phase-driven-development-v2/reference.md` (repo: `skills/phase-driven-development-v2/`)
+   b. RULE FILE → `<rules-dir>/qa-rules.md` (source path in repo: `rules/QA_RULES.md`)
+   c. ONE-SHOT PROMPT → save as `<scope-root>/SELF-MAINTAIN-DOC-PROMPT.MD` for later reference (source: `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`); do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
 
 5. Wire up the rule file by appending an import line to the instruction file (CLAUDE.md or AGENTS.md):
    - Claude Code: append `@rules/qa-rules.md` (global) or `@.claude/rules/qa-rules.md` (per-project)
@@ -70,7 +67,7 @@ Steps you must perform:
    - If the instruction file does not exist, create it with the import line.
 
 6. Verify each file:
-   - SKILL.md has YAML frontmatter with `name:` and `description:`
+   - Both SKILL.md and reference.md exist under `phase-driven-development-v2/` with YAML frontmatter on SKILL.md
    - qa-rules.md is non-empty
    - Instruction file contains the import line
 
@@ -82,9 +79,9 @@ Constraints:
 - If a destination file already exists with different content, ask before overwriting.
 - If you cannot fetch a URL, report which one and stop.
 
-Optional: also install `superpowers` (companion plugin that the SKILL delegates to) if I'm on Claude Code:
+Optional: also install `superpowers` (companion plugin that PDD delegates to) if I'm on Claude Code:
 - Run `/plugin install superpowers@claude-plugins-official` and confirm.
-- If not on Claude Code or I decline, skip. The skill works without it via built-in fallback procedures.
+- If not on Claude Code or I decline, skip. Install superpowers for the full delegated workflow.
 ````
 
 After pasting, answer the agent's "global vs per-project" question and let it run. It should report back with paths.
@@ -95,50 +92,7 @@ After pasting, answer the agent's "global vs per-project" question and let it ru
 
 Pick one method per artifact. Skills must be files; one-shot prompts can be pasted.
 
-#### B1. `phase-driven-development` skill (file install)
-
-The skill lives on disk; the agent harness discovers it. Both Claude Code and opencode scan the same `.claude/skills/` paths, so a single install works for both.
-
-**Global (recommended)** — available in every project, both agents:
-
-```bash
-mkdir -p ~/.claude/skills/phase-driven-development
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/SKILL.md \
-  -o ~/.claude/skills/phase-driven-development/SKILL.md
-```
-
-**Per-project** — checked into the project's `.claude/` dir (both agents read this):
-
-```bash
-mkdir -p .claude/skills/phase-driven-development
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/SKILL.md \
-  -o .claude/skills/phase-driven-development/SKILL.md
-```
-
-**opencode-native paths** (optional, if you prefer not to use the `.claude/` path):
-
-| Scope | Path |
-|-------|------|
-| Global | `~/.config/opencode/skills/phase-driven-development/SKILL.md` |
-| Per-project | `.opencode/skills/phase-driven-development/SKILL.md` |
-
-**Verify:**
-- Claude Code: trigger any feature-planning prompt — `phase-driven-development` should appear in the available-skills list.
-- opencode: the `skill` tool will list it; agents can invoke it on-demand.
-
-#### Recommended companion: `superpowers`
-
-The skill delegates to `superpowers:*` skills (brainstorming, writing-plans, test-driven-development, executing-plans, subagent-driven-development, verification-before-completion, systematic-debugging, finishing-a-development-branch). With superpowers installed, each phase step runs the focused skill that owns that practice. Without it, `phase-driven-development` falls back to its own minimum-viable mini-procedures and keeps working — just with less depth.
-
-Install superpowers (Claude Code):
-
-```bash
-/plugin install superpowers@claude-plugins-official
-```
-
-Source: [superpowers on the Claude plugin marketplace](https://claude.com/plugins/superpowers) · GitHub: [obra/superpowers](https://github.com/obra/superpowers) (by [@obra](https://github.com/obra)).
-
-#### B1b. `phase-driven-development-v2` skill (PDD / optional)
+#### B1. `phase-driven-development-v2` skill (PDD)
 
 Install **both** `SKILL.md` and `reference.md` into the same skills subfolder:
 
@@ -149,6 +103,39 @@ curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/ph
 curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/reference.md \
   -o ~/.claude/skills/phase-driven-development-v2/reference.md
 ```
+
+**Per-project:**
+
+```bash
+mkdir -p .claude/skills/phase-driven-development-v2
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/SKILL.md \
+  -o .claude/skills/phase-driven-development-v2/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/reference.md \
+  -o .claude/skills/phase-driven-development-v2/reference.md
+```
+
+**opencode-native paths** (optional):
+
+| Scope | Path |
+|-------|------|
+| Global | `~/.config/opencode/skills/phase-driven-development-v2/` |
+| Per-project | `.opencode/skills/phase-driven-development-v2/` |
+
+**Verify:**
+- Claude Code: `pdd` / phase-driven skill should appear where your harness lists skills.
+- opencode: the `skill` tool should list it when configured.
+
+#### Recommended companion: `superpowers`
+
+PDD delegates to `superpowers:*` skills (brainstorming, writing-plans, test-driven-development, executing-plans, subagent-driven-development, verification-before-completion, systematic-debugging, finishing-a-development-branch). With superpowers installed, each step maps to the focused skill that owns that practice.
+
+Install superpowers (Claude Code):
+
+```bash
+/plugin install superpowers@claude-plugins-official
+```
+
+Source: [superpowers on the Claude plugin marketplace](https://claude.com/plugins/superpowers) · GitHub: [obra/superpowers](https://github.com/obra/superpowers) (by [@obra](https://github.com/obra)).
 
 #### B2. `prompts/SELF-MAINTAIN-DOC-PROMPT.MD` (paste prompt)
 
@@ -232,7 +219,7 @@ Either reference it from `AGENTS.md` at the project root:
 
 ## Why these choices
 
-- **Skill → file install.** Both Claude Code and opencode discover skills by scanning `.claude/skills/` (and opencode also checks `.opencode/skills/`). A pasted prompt won't register as an invocable skill. Single-file `curl` beats full `git clone` because the skill is one self-contained file.
+- **Skill → file install.** Both Claude Code and opencode discover skills by scanning `.claude/skills/` (and opencode also checks `.opencode/skills/`). PDD uses **two** files (`SKILL.md` + `reference.md`) in one folder; fetch both. A pasted prompt won't register as an invocable skill.
 - **Rule file → file install + import.** Rules need to load into every session automatically; `CLAUDE.md` (Claude Code) and `AGENTS.md` (opencode) do this via `@...` imports. Pasting would only apply for one turn.
 - **One-shot prompt → paste.** The self-maintain doc is a one-time bootstrap prompt the agent reads top-to-bottom. There's nothing for the harness to "install" — pasting at session start is the simplest delivery, and works identically in both agents.
 
@@ -255,12 +242,10 @@ oh-my-agent/
 ├── rules/
 │   └── QA_RULES.md
 ├── skills/
-│   ├── phase-driven-development-v2/
-│   │   ├── README.md
-│   │   ├── SKILL.md
-│   │   └── reference.md
-│   └── phase-driven-development/
-│       └── SKILL.md
+│   └── phase-driven-development-v2/
+│       ├── README.md
+│       ├── SKILL.md
+│       └── reference.md
 └── docs/
     └── superpowers/
         ├── plans/

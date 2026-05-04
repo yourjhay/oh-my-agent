@@ -7,4 +7,4 @@
 | [`SKILL.md`](SKILL.md) | Orchestrator: when to use, state machine, superpowers interop, G7 roadmap updates |
 | [`reference.md`](reference.md) | Phase 0 contract, roadmap OK / plan approval text, status transitions, roadmap template slot |
 
-Install this folder as a skill (same pattern as [`../phase-driven-development/`](../phase-driven-development/)): copy `skills/phase-driven-development-v2/` into `.claude/skills/phase-driven-development-v2/` (or your harness path). Skill frontmatter `name` remains **`pdd`** for short invocation where supported.
+Copy `skills/phase-driven-development-v2/` into `.claude/skills/phase-driven-development-v2/` (or your harness’s skills directory), keeping **both** `SKILL.md` and `reference.md`. Frontmatter `name` is **`pdd`** where your agent uses it.

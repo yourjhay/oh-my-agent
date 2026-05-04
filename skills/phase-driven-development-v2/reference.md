@@ -80,7 +80,7 @@ Ready to proceed with Phase <N> implementation? (yes / changes / no)
 
 **Path:** `docs/roadmaps/<feature>-roadmap.md`
 
-**Author note:** Replace the **Template slot** subsection below with your team’s full roadmap table when ready. A complete example structure lives in [`phase-driven-development/SKILL.md`](../phase-driven-development/SKILL.md) under **Templates → Roadmap** (markdown block ~lines 250–272).
+**Author note:** Replace the **Template slot** subsection below with your team’s full roadmap table when ready. Extend the minimal example with any columns (e.g. **Todos**, links) your process needs.
 
 ### Template slot (minimal example — replace with your canonical table)
 
@@ -140,12 +140,18 @@ List in roadmap Visual column or Phase Notes if your template includes them.
 
 ## Mid-phase scope changes
 
-If scope shifts during implementation, **stop** and classify (mirrors v1 intent):
+If scope grows or drifts during implementation, **stop**. Do not silently expand.
 
 | Type | Action |
 |------|--------|
-| Bug in plan / missing step | Fix plan + implementation; note in PR if needed |
-| Small addition (≤2 tasks, same goal) | Extend plan; user re-approves if your team requires it |
-| New scope / breaks acceptance / large add | Re-spec the phase; do not silently expand |
+| Bug in plan (wrong path, missing dependency, broken test) | Fix the plan and implementation; note the deviation in the PR or team log. |
+| New work **within** the phase (≤2 added tasks, same goal, acceptance criteria unchanged) | Append to the plan; note the deviation; get user re-approval if your bar requires it. |
+| **New scope** (changes the goal, breaks acceptance criteria, or >2 added tasks) | **Pause.** Update the spec for this phase, refresh the plan, and run the **plan approval gate** again before more implementation. |
+| Separate concern (different goal or belongs in another phase) | Add or defer to another phase in the roadmap; do not bundle unrelated work into the current phase. |
 
-Full table and narrative: see **`phase-driven-development`** v1 [`SKILL.md`](../phase-driven-development/SKILL.md) section **Mid-Phase Scope Changes**.
+### Re-approve flow (when “new scope” triggers)
+
+1. Pause implementation; commit or stash work safely.
+2. Update the phase **spec** and **plan** to match reality.
+3. Post an **Approval Ask** again (same pattern as first-time plan approval).
+4. Resume only after explicit user confirmation.
