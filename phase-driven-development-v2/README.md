@@ -1,8 +1,10 @@
-# phase-driven-development-v2 (redirect)
+# phase-driven-development-v2 (PDD)
 
-**PDD (Phase-Driven Development v2)** lives at [`../pdd/`](../pdd/):
+**PDD (Phase-Driven Development v2)** — roadmap-first multi-phase workflow.
 
-- [`../pdd/SKILL.md`](../pdd/SKILL.md) — orchestrator
-- [`../pdd/reference.md`](../pdd/reference.md) — contracts, gates, roadmap template slot
+| File | Role |
+|------|------|
+| [`SKILL.md`](SKILL.md) | Orchestrator: when to use, state machine, superpowers interop, G7 roadmap updates |
+| [`reference.md`](reference.md) | Phase 0 contract, roadmap OK / plan approval text, status transitions, roadmap template slot |
 
-This folder is kept only as a discoverability stub for anyone looking for a “v2” path. Prefer installing or copying from **`pdd/`**.
+Install this folder as a skill (same pattern as [`../phase-driven-development/`](../phase-driven-development/)): copy `phase-driven-development-v2/` into `.claude/skills/` (or your harness path). Skill frontmatter `name` remains **`pdd`** for short invocation where supported.

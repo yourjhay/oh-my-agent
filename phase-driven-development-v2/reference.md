@@ -1,4 +1,4 @@
-# PDD — reference (`pdd`)
+# PDD — reference (`phase-driven-development-v2`)
 
 Companion to [`SKILL.md`](SKILL.md). Contracts, gates, status rules, and roadmap template slot.
 

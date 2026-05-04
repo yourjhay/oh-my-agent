@@ -2,7 +2,7 @@
 name: pdd
 description: >-
   PDD (Phase-Driven Development v2). Use when a feature qualifies for phasing
-  (2+ persistence surfaces, 2+ user-facing surfaces, background work,
+  (2+ new persistence surfaces, 2+ new user-facing surfaces, background work,
   multi-domain, or natural multi-phase rollout) and you want a roadmap-first
   workflow — brainstorm a phased roadmap, explicit roadmap approval,
   then per-phase brainstorm → spec → writing-plans → implement. Delegates to

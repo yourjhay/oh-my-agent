@@ -115,7 +115,7 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 ## Acceptance criteria
 
 - [x] Design doc (this file) committed under `docs/superpowers/specs/`.
-- [x] Implementation adds `pdd/SKILL.md` + `reference.md`, implements Phase 0 contract, roadmap OK gate, per-phase delegation, and **mandatory roadmap status updates** (G7).
+- [x] Implementation adds `phase-driven-development-v2/SKILL.md` + `reference.md`, implements Phase 0 contract, roadmap OK gate, per-phase delegation, and **mandatory roadmap status updates** (G7).
 - [x] Main `SKILL.md` stays short (85 lines); full template in `reference.md` only.
 - [x] Explicit **roadmap OK** question appears in reference as copy-paste text.
 
@@ -127,10 +127,10 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 - **Consistency:** Phase 0 avoids full-feature writing-plans; per-phase restores normal superpowers flow.
 - **Scope:** Single skill + reference; roadmap status is **owned** by PDD; optional todo-file rituals remain out of scope (non-goals).
 - **Ambiguity:** Roadmap approval is explicit in chat; optional dated line in Phase Notes if the template includes it.
-- **Implementation (2026-05-04):** `pdd/SKILL.md`, `pdd/reference.md` added; minimal roadmap table in `reference.md` (author may replace with full template). Plan: `docs/superpowers/plans/2026-05-04-pdd-skill.md`.
+- **Implementation (2026-05-04):** `phase-driven-development-v2/SKILL.md`, `phase-driven-development-v2/reference.md`; minimal roadmap table in `reference.md` (author may replace with full template). Plan: `docs/superpowers/plans/2026-05-04-pdd-skill.md`. **Layout:** v2 skill files live only under `phase-driven-development-v2/` (consolidated from former `pdd/`).
 
 ---
 
 ## Next step
 
-After user approves this document, use **`superpowers:writing-plans`** to produce the implementation plan for creating `pdd/SKILL.md` and `reference.md` (and optional README pointer in `agents-rules`).
+After user approves this document, use **`superpowers:writing-plans`** to produce the implementation plan for creating the PDD skill files and `reference.md` under `phase-driven-development-v2/` (and optional README pointer in `agents-rules`).
