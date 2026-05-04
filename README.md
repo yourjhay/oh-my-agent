@@ -6,8 +6,8 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 
 | Artifact | Type | Purpose |
 |----------|------|---------|
-| [`phase-driven-development-v2/SKILL.md`](phase-driven-development-v2/SKILL.md) | Claude Code skill | **PDD (v2)** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`phase-driven-development-v2/reference.md`](phase-driven-development-v2/reference.md). |
-| [`phase-driven-development/SKILL.md`](phase-driven-development/SKILL.md) | Claude Code skill | **v1** — Full phase cycle with resumable roadmap **and** optional per-phase todos / bookkeeping. Same superpowers delegation pattern; use when you want todo-file rituals. |
+| [`skills/phase-driven-development-v2/SKILL.md`](skills/phase-driven-development-v2/SKILL.md) | Claude Code skill | **PDD (v2)** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`skills/phase-driven-development-v2/reference.md`](skills/phase-driven-development-v2/reference.md). |
+| [`skills/phase-driven-development/SKILL.md`](skills/phase-driven-development/SKILL.md) | Claude Code skill | **v1** — Full phase cycle with resumable roadmap **and** optional per-phase todos / bookkeeping. Same superpowers delegation pattern; use when you want todo-file rituals. |
 | [`prompts/SELF-MAINTAIN-DOC-PROMPT.MD`](prompts/SELF-MAINTAIN-DOC-PROMPT.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
 | [`rules/QA_RULES.md`](rules/QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
 
@@ -35,8 +35,8 @@ Repo: https://github.com/yourjhay/oh-my-agent
 Raw base: https://raw.githubusercontent.com/yourjhay/oh-my-agent/main
 
 Artifacts:
-1. SKILL — `phase-driven-development/SKILL.md` (v1)
-2. SKILL (optional) — `phase-driven-development-v2/SKILL.md` + `phase-driven-development-v2/reference.md` (PDD / v2)
+1. SKILL — `skills/phase-driven-development/SKILL.md` (v1)
+2. SKILL (optional) — `skills/phase-driven-development-v2/SKILL.md` + `skills/phase-driven-development-v2/reference.md` (PDD / v2)
 3. RULE FILE — `rules/QA_RULES.md`
 4. ONE-SHOT PROMPT — `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`
 
@@ -58,8 +58,8 @@ Steps you must perform:
    - opencode per-project: skills → `.opencode/skills/` (or `.claude/skills/`), rules → project root, instruction file → `./AGENTS.md`
 
 4. For each artifact, fetch from the raw base URL and write to disk:
-   a. SKILL (v1) → `<skills-dir>/phase-driven-development/SKILL.md` (preserve the directory name)
-   b. SKILL (v2, optional) → `<skills-dir>/phase-driven-development-v2/SKILL.md` and `<skills-dir>/phase-driven-development-v2/reference.md`
+   a. SKILL (v1) → `<skills-dir>/phase-driven-development/SKILL.md` (repo source: `skills/phase-driven-development/SKILL.md`)
+   b. SKILL (v2, optional) → `<skills-dir>/phase-driven-development-v2/SKILL.md` and `<skills-dir>/phase-driven-development-v2/reference.md` (repo: `skills/phase-driven-development-v2/`)
    c. RULE FILE → `<rules-dir>/qa-rules.md` (source path in repo: `rules/QA_RULES.md`)
    d. ONE-SHOT PROMPT → save as `<scope-root>/SELF-MAINTAIN-DOC-PROMPT.MD` for later reference (source: `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`); do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
 
@@ -103,7 +103,7 @@ The skill lives on disk; the agent harness discovers it. Both Claude Code and op
 
 ```bash
 mkdir -p ~/.claude/skills/phase-driven-development
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-driven-development/SKILL.md \
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/SKILL.md \
   -o ~/.claude/skills/phase-driven-development/SKILL.md
 ```
 
@@ -111,7 +111,7 @@ curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-dri
 
 ```bash
 mkdir -p .claude/skills/phase-driven-development
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-driven-development/SKILL.md \
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development/SKILL.md \
   -o .claude/skills/phase-driven-development/SKILL.md
 ```
 
@@ -144,9 +144,9 @@ Install **both** `SKILL.md` and `reference.md` into the same skills subfolder:
 
 ```bash
 mkdir -p ~/.claude/skills/phase-driven-development-v2
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-driven-development-v2/SKILL.md \
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/SKILL.md \
   -o ~/.claude/skills/phase-driven-development-v2/SKILL.md
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-driven-development-v2/reference.md \
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/phase-driven-development-v2/reference.md \
   -o ~/.claude/skills/phase-driven-development-v2/reference.md
 ```
 
@@ -254,12 +254,13 @@ oh-my-agent/
 │   └── SELF-MAINTAIN-DOC-PROMPT.MD
 ├── rules/
 │   └── QA_RULES.md
-├── phase-driven-development-v2/
-│   ├── README.md
-│   ├── SKILL.md
-│   └── reference.md
-├── phase-driven-development/
-│   └── SKILL.md
+├── skills/
+│   ├── phase-driven-development-v2/
+│   │   ├── README.md
+│   │   ├── SKILL.md
+│   │   └── reference.md
+│   └── phase-driven-development/
+│       └── SKILL.md
 └── docs/
     └── superpowers/
         ├── plans/
