@@ -14,11 +14,85 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 
 ## Install
 
-Pick one method per artifact. Skills must be files; prompts can be pasted.
+Two paths:
+
+- **A. Prompt install (easiest)** — paste one block into your agent; it detects the harness and installs everything.
+- **B. Manual install (curl)** — explicit commands per artifact, full control.
 
 > Source: [`yourjhay/oh-my-agent`](https://github.com/yourjhay/oh-my-agent). Raw URL base used in commands below: `https://raw.githubusercontent.com/yourjhay/oh-my-agent/main`. To pin a specific commit instead of `main`, replace `main` with the commit SHA.
 
-### 1. `phase-driven-development` skill (file install)
+---
+
+### A. Prompt install (any agent — Claude Code, opencode, Cursor, etc.)
+
+Paste the block below into your agent. It works in any chat-style coding agent. The agent detects which harness it's running in, asks whether you want global or per-project install, fetches files from this repo, and wires up imports.
+
+````
+Install the `oh-my-agent` toolkit for the agent harness you're running in.
+
+Repo: https://github.com/yourjhay/oh-my-agent
+Raw base: https://raw.githubusercontent.com/yourjhay/oh-my-agent/main
+
+Artifacts:
+1. SKILL — `phase-driven-development/SKILL.md`
+2. RULE FILE — `QA_RULES.md`
+3. ONE-SHOT PROMPT — `SELF-MAINTAIN-DOCUMENTATION.MD`
+
+Steps you must perform:
+
+1. **Ask me first**, before doing anything else:
+   > "Install `oh-my-agent` GLOBALLY (available in every project on this machine) or PER-PROJECT (just this repo)?"
+   Wait for my explicit answer (`global` or `per-project`). Do not proceed until I respond.
+
+2. Detect the harness by checking which dirs/files exist:
+   - Claude Code: `~/.claude/` or `CLAUDE.md` in cwd
+   - opencode: `~/.config/opencode/` or `AGENTS.md` in cwd, or `opencode.json`
+   - Other (Cursor, Aider, etc.): note it, then default to writing to `.claude/` paths since most agents read those as a fallback.
+
+3. Choose paths based on harness + scope:
+   - Claude Code global: skills → `~/.claude/skills/`, rules → `~/.claude/rules/`, instruction file → `~/.claude/CLAUDE.md`
+   - Claude Code per-project: skills → `.claude/skills/`, rules → `.claude/rules/`, instruction file → `./CLAUDE.md`
+   - opencode global: skills → `~/.config/opencode/skills/` (or `~/.claude/skills/`), rules → `~/.config/opencode/`, instruction file → `~/.config/opencode/AGENTS.md`
+   - opencode per-project: skills → `.opencode/skills/` (or `.claude/skills/`), rules → project root, instruction file → `./AGENTS.md`
+
+4. For each artifact, fetch from the raw base URL and write to disk:
+   a. SKILL → `<skills-dir>/phase-driven-development/SKILL.md` (preserve the directory name)
+   b. RULE FILE → `<rules-dir>/qa-rules.md`
+   c. ONE-SHOT PROMPT → save as `<scope-root>/self-maintain-documentation.md` for later reference; do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
+
+5. Wire up the rule file by appending an import line to the instruction file (CLAUDE.md or AGENTS.md):
+   - Claude Code: append `@rules/qa-rules.md` (global) or `@.claude/rules/qa-rules.md` (per-project)
+   - opencode: append `@qa-rules.md` (path relative to instruction file)
+   - If the import line already exists, skip.
+   - If the instruction file does not exist, create it with the import line.
+
+6. Verify each file:
+   - SKILL.md has YAML frontmatter with `name:` and `description:`
+   - qa-rules.md is non-empty
+   - Instruction file contains the import line
+
+7. Report a summary table: artifact, destination path, status (installed | skipped | failed).
+
+Constraints:
+- Do not commit or push anything.
+- Do not modify any files outside the install paths above.
+- If a destination file already exists with different content, ask before overwriting.
+- If you cannot fetch a URL, report which one and stop.
+
+Optional: also install `superpowers` (companion plugin that the SKILL delegates to) if I'm on Claude Code:
+- Run `/plugin install superpowers@claude-plugins-official` and confirm.
+- If not on Claude Code or I decline, skip. The skill works without it via built-in fallback procedures.
+````
+
+After pasting, answer the agent's "global vs per-project" question and let it run. It should report back with paths.
+
+---
+
+### B. Manual install (curl)
+
+Pick one method per artifact. Skills must be files; one-shot prompts can be pasted.
+
+#### B1. `phase-driven-development` skill (file install)
 
 The skill lives on disk; the agent harness discovers it. Both Claude Code and opencode scan the same `.claude/skills/` paths, so a single install works for both.
 
@@ -61,7 +135,7 @@ Install superpowers (Claude Code):
 
 Source: [superpowers on the Claude plugin marketplace](https://claude.com/plugins/superpowers) · GitHub: [obra/superpowers](https://github.com/obra/superpowers) (by [@obra](https://github.com/obra)).
 
-### 2. `SELF-MAINTAIN-DOCUMENTATION.MD` (paste prompt)
+#### B2. `SELF-MAINTAIN-DOCUMENTATION.MD` (paste prompt)
 
 No file install needed. View raw, copy the contents, paste into your agent at the **root of the target project**:
 
@@ -72,7 +146,7 @@ curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/SELF-MAIN
 
 Then paste into your agent and follow its instructions.
 
-### 3. `QA_RULES.md` (rule file install)
+#### B3. `QA_RULES.md` (rule file install)
 
 Rule files load every session via an import line in the agent's instruction file (`CLAUDE.md` for Claude Code, `AGENTS.md` for opencode). Install the file, then add the import.
 
