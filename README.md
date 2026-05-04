@@ -8,8 +8,8 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 |----------|------|---------|
 | [`phase-driven-development-v2/SKILL.md`](phase-driven-development-v2/SKILL.md) | Claude Code skill | **PDD (v2)** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`phase-driven-development-v2/reference.md`](phase-driven-development-v2/reference.md). |
 | [`phase-driven-development/SKILL.md`](phase-driven-development/SKILL.md) | Claude Code skill | **v1** — Full phase cycle with resumable roadmap **and** optional per-phase todos / bookkeeping. Same superpowers delegation pattern; use when you want todo-file rituals. |
-| [`SELF-MAINTAIN-DOC-PROMPT.MD`](SELF-MAINTAIN-DOC-PROMPT.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
-| [`QA_RULES.md`](QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
+| [`prompts/SELF-MAINTAIN-DOC-PROMPT.MD`](prompts/SELF-MAINTAIN-DOC-PROMPT.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
+| [`rules/QA_RULES.md`](rules/QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
 
 ---
 
@@ -35,9 +35,10 @@ Repo: https://github.com/yourjhay/oh-my-agent
 Raw base: https://raw.githubusercontent.com/yourjhay/oh-my-agent/main
 
 Artifacts:
-1. SKILL — `phase-driven-development/SKILL.md`
-2. RULE FILE — `QA_RULES.md`
-3. ONE-SHOT PROMPT — `SELF-MAINTAIN-DOC-PROMPT.MD`
+1. SKILL — `phase-driven-development/SKILL.md` (v1)
+2. SKILL (optional) — `phase-driven-development-v2/SKILL.md` + `phase-driven-development-v2/reference.md` (PDD / v2)
+3. RULE FILE — `rules/QA_RULES.md`
+4. ONE-SHOT PROMPT — `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`
 
 Steps you must perform:
 
@@ -57,9 +58,10 @@ Steps you must perform:
    - opencode per-project: skills → `.opencode/skills/` (or `.claude/skills/`), rules → project root, instruction file → `./AGENTS.md`
 
 4. For each artifact, fetch from the raw base URL and write to disk:
-   a. SKILL → `<skills-dir>/phase-driven-development/SKILL.md` (preserve the directory name)
-   b. RULE FILE → `<rules-dir>/qa-rules.md`
-   c. ONE-SHOT PROMPT → save as `<scope-root>/SELF-MAINTAIN-DOC-PROMPT.MD` for later reference; do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
+   a. SKILL (v1) → `<skills-dir>/phase-driven-development/SKILL.md` (preserve the directory name)
+   b. SKILL (v2, optional) → `<skills-dir>/phase-driven-development-v2/SKILL.md` and `<skills-dir>/phase-driven-development-v2/reference.md`
+   c. RULE FILE → `<rules-dir>/qa-rules.md` (source path in repo: `rules/QA_RULES.md`)
+   d. ONE-SHOT PROMPT → save as `<scope-root>/SELF-MAINTAIN-DOC-PROMPT.MD` for later reference (source: `prompts/SELF-MAINTAIN-DOC-PROMPT.MD`); do NOT import into the instruction file (it is a one-time bootstrap prompt, not a persistent rule)
 
 5. Wire up the rule file by appending an import line to the instruction file (CLAUDE.md or AGENTS.md):
    - Claude Code: append `@rules/qa-rules.md` (global) or `@.claude/rules/qa-rules.md` (per-project)
@@ -136,18 +138,30 @@ Install superpowers (Claude Code):
 
 Source: [superpowers on the Claude plugin marketplace](https://claude.com/plugins/superpowers) · GitHub: [obra/superpowers](https://github.com/obra/superpowers) (by [@obra](https://github.com/obra)).
 
-#### B2. `SELF-MAINTAIN-DOC-PROMPT.MD` (paste prompt)
+#### B1b. `phase-driven-development-v2` skill (PDD / optional)
+
+Install **both** `SKILL.md` and `reference.md` into the same skills subfolder:
+
+```bash
+mkdir -p ~/.claude/skills/phase-driven-development-v2
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-driven-development-v2/SKILL.md \
+  -o ~/.claude/skills/phase-driven-development-v2/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/phase-driven-development-v2/reference.md \
+  -o ~/.claude/skills/phase-driven-development-v2/reference.md
+```
+
+#### B2. `prompts/SELF-MAINTAIN-DOC-PROMPT.MD` (paste prompt)
 
 No file install needed. View raw, copy the contents, paste into your agent at the **root of the target project**:
 
 ```bash
 # fetch and copy to clipboard (macOS)
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/SELF-MAINTAIN-DOC-PROMPT.MD | pbcopy
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/prompts/SELF-MAINTAIN-DOC-PROMPT.MD | pbcopy
 ```
 
 Then paste into your agent and follow its instructions.
 
-#### B3. `QA_RULES.md` (rule file install)
+#### B3. `rules/QA_RULES.md` (rule file install)
 
 Rule files load every session via an import line in the agent's instruction file (`CLAUDE.md` for Claude Code, `AGENTS.md` for opencode). Install the file, then add the import.
 
@@ -155,7 +169,7 @@ Rule files load every session via an import line in the agent's instruction file
 
 ```bash
 mkdir -p ~/.claude/rules
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/QA_RULES.md -o ~/.claude/rules/qa-rules.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/rules/QA_RULES.md -o ~/.claude/rules/qa-rules.md
 ```
 
 Add to `~/.claude/CLAUDE.md`:
@@ -168,7 +182,7 @@ Add to `~/.claude/CLAUDE.md`:
 
 ```bash
 mkdir -p .claude/rules
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/QA_RULES.md -o .claude/rules/qa-rules.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/rules/QA_RULES.md -o .claude/rules/qa-rules.md
 ```
 
 Add to the project's `CLAUDE.md`:
@@ -181,7 +195,7 @@ Add to the project's `CLAUDE.md`:
 
 ```bash
 mkdir -p ~/.config/opencode
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/QA_RULES.md -o ~/.config/opencode/qa-rules.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/rules/QA_RULES.md -o ~/.config/opencode/qa-rules.md
 ```
 
 Add to `~/.config/opencode/AGENTS.md` (create if missing):
@@ -193,7 +207,7 @@ Add to `~/.config/opencode/AGENTS.md` (create if missing):
 **opencode (per-project)**:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/QA_RULES.md -o qa-rules.md
+curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/rules/QA_RULES.md -o qa-rules.md
 ```
 
 Either reference it from `AGENTS.md` at the project root:
@@ -236,14 +250,20 @@ Re-run the same `curl` command to pull the latest version. To pin to a specific 
 oh-my-agent/
 ├── README.md
 ├── LICENSE
+├── prompts/
+│   └── SELF-MAINTAIN-DOC-PROMPT.MD
+├── rules/
+│   └── QA_RULES.md
 ├── phase-driven-development-v2/
 │   ├── README.md
 │   ├── SKILL.md
 │   └── reference.md
 ├── phase-driven-development/
 │   └── SKILL.md
-├── SELF-MAINTAIN-DOC-PROMPT.MD
-└── QA_RULES.md
+└── docs/
+    └── superpowers/
+        ├── plans/
+        └── specs/
 ```
 
 ---
