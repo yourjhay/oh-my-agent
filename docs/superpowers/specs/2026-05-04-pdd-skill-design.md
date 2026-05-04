@@ -23,7 +23,7 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 - **G1 — Orchestration:** PDD defines order of operations, artifact paths, and gates; superpowers skills do the heavy lifting.
 - **G2 — Roadmap first:** First brainstorming pass yields **`docs/roadmaps/<feature>-roadmap.md`** using a fixed template supplied by PDD (via `reference.md`).
 - **G3 — Roadmap gate:** No Phase 1 brainstorming-for-spec until the user explicitly approves the roadmap (“roadmap OK?” / equivalent).
-- **G4 — Per-phase cycle:** For each phase: brainstorming → spec → user reviews spec (per brainstorming) → writing-plans → approval gate → implement → merge/update roadmap; **one phase at a time** until merged.
+- **G4 — Per-phase cycle:** For each phase: brainstorming → spec → user reviews spec (per brainstorming) → writing-plans → approval gate → implement → merge; **one phase at a time** until merged.
 - **G5 — Token efficiency:** `SKILL.md` ≤ ~120–150 lines of high-signal content; long templates in `reference.md` (or `references/*.md`).
 - **G6 — Visuals:** Optional; only if the user requests; paths documented in reference (e.g. optional Visual column, `phase<N>-visual.<ext>`).
 
@@ -32,6 +32,7 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 - Replacing superpowers brainstorming or writing-plans content rules.
 - Defining stack-specific implementation details.
 - Auto-generating code or skipping user approval on plans.
+- **Bookkeeping:** PDD does **not** own roadmap row maintenance, per-phase todo files, session-task mirroring, or “freeze todos” rituals — teams handle tracking however they prefer (or use v1 if they want that model).
 
 ---
 
@@ -58,8 +59,7 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
    - **Plan:** Invoke **`superpowers:writing-plans`** → `docs/superpowers/plans/<date>-<feature>.md` (with `-phase<N>` when needed).  
    - **Plan approval gate:** PDD Approval Ask (same intent as v1); wait for explicit go-ahead.  
    - **Implement:** TDD / subagent or executing-plans per project norms; verification-before-completion before claiming done.  
-   - **Finish phase:** Merge to main; update roadmap row and freeze todos file; **do not** start next phase until current phase is **merged** (same discipline as v1).
-6. **Bookkeeping:** PDD owns roadmap updates and `docs/roadmaps/<feature>/phase<N>-todos.md` lifecycle (mirror v1).
+   - **Finish phase:** Merge to main; **do not** start next phase until current phase is **merged**. Tracking artifacts (roadmap status rows, todo files, etc.) are **out of scope** for PDD unless the project chooses to maintain them separately.
 
 ---
 
@@ -82,18 +82,17 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 
 ## Artifact layout (repo conventions)
 
-- **Roadmap:** `docs/roadmaps/<feature>-roadmap.md`  
-- **Per-phase todos:** `docs/roadmaps/<feature>/phase<N>-todos.md`  
-- **Specs / plans:** existing superpowers paths under `docs/superpowers/specs/` and `docs/superpowers/plans/`.
+- **Roadmap:** `docs/roadmaps/<feature>-roadmap.md` (Phase 0 deliverable; template in `reference.md`).
+- **Specs / plans:** superpowers paths under `docs/superpowers/specs/` and `docs/superpowers/plans/`.
 
-Statuses in the roadmap table align with v1 (`planned`, `brainstorming`, `spec`, `plan`, `approved`, `in-review`, `merged`, `blocked`). **Roadmap approval** is recorded only in **Phase Notes** as a dated line: `Roadmap approved YYYY-MM-DD` (after the user says roadmap OK). Optional: add a **Phase 0** row “Roadmap” with status moving `brainstorming` → `merged` when the roadmap file is approved — detail in `reference.md`. First implementation phase for specs remains **Phase 1** unless the roadmap template uses only substantive phases (then Phase 0 is bookkeeping-only).
+The roadmap template **may** include a status table for human readability; updating it as phases progress is **optional** and **not** required by PDD. **Roadmap approval** in chat may be echoed in **Phase Notes** as `Roadmap approved YYYY-MM-DD` if the template provides that section. Optional **Phase 0** row “Roadmap” in the table is documented in `reference.md`. First implementation phase for specs remains **Phase 1** unless the template uses only substantive phases.
 
 ---
 
 ## Token strategy
 
 - **`SKILL.md`:** Frontmatter + when-to-use + state machine + interop table + paths + “read `reference.md` for templates and Phase 0 contract.”
-- **`reference.md`:** Full roadmap template, Approval Ask variants (including **roadmap OK**), optional Visual column rules, mid-phase scope change summary (pointer to v1 text if duplicated), Phase 0 / per-phase brainstorming preambles.
+- **`reference.md`:** Full roadmap template, Approval Ask variants (including **roadmap OK**), optional Visual column rules, mid-phase scope change summary (optional pointer to v1), Phase 0 / per-phase brainstorming preambles.
 
 ---
 
@@ -118,10 +117,10 @@ Statuses in the roadmap table align with v1 (`planned`, `brainstorming`, `spec`,
 
 ## Self-review (2026-05-04)
 
-- **Placeholders:** None intended; status column convention for “roadmap approved” offers two options — implementation plan should choose one and remove ambiguity.
+- **Placeholders:** None intended.
 - **Consistency:** Phase 0 avoids full-feature writing-plans; per-phase restores normal superpowers flow.
-- **Scope:** Single skill + reference; no extra tooling.
-- **Ambiguity:** Roadmap approval is explicit in chat and dated in Phase Notes; optional Phase 0 row described above — implementation plan picks template shape once.
+- **Scope:** Single skill + reference; no bookkeeping ownership.
+- **Ambiguity:** Roadmap approval is explicit in chat; optional dated line in Phase Notes if the template includes it.
 
 ---
 
