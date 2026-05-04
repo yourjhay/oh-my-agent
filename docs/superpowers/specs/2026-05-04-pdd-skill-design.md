@@ -1,8 +1,10 @@
 # Design: PDD (Phase-Driven Development) skill v2
 
 **Date:** 2026-05-04  
-**Status:** Draft → review  
+**Status:** Approved for implementation (2026-05-04)  
 **Scope:** New orchestration skill (“PDD”) for multi-phase work, integrated with superpowers, token-efficient layout, explicit roadmap approval gate.
+
+**Implementation note — roadmap table template:** The full markdown table for `docs/roadmaps/<feature>-roadmap.md` is **deferred**; the author will add it to `reference.md` later. The shipped `reference.md` will still include **status vocabulary**, **transition rules**, **Phase 0 / per-phase contracts**, and a **minimal placeholder** (or one example row) so agents know where the canonical table belongs — not an empty “TBD” section.
 
 ---
 
@@ -21,7 +23,7 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 ## Goals
 
 - **G1 — Orchestration:** PDD defines order of operations, artifact paths, and gates; superpowers skills do the heavy lifting.
-- **G2 — Roadmap first:** First brainstorming pass yields **`docs/roadmaps/<feature>-roadmap.md`** using a fixed template supplied by PDD (via `reference.md`).
+- **G2 — Roadmap first:** First brainstorming pass yields **`docs/roadmaps/<feature>-roadmap.md`** using the roadmap structure and columns defined in **`reference.md`** (full table template may be completed by the repo owner when ready; see **Implementation note** above).
 - **G3 — Roadmap gate:** No Phase 1 brainstorming-for-spec until the user explicitly approves the roadmap (“roadmap OK?” / equivalent).
 - **G4 — Per-phase cycle:** For each phase: brainstorming → spec → user reviews spec (per brainstorming) → writing-plans → approval gate → implement → merge; **one phase at a time** until merged.
 - **G5 — Token efficiency:** `SKILL.md` ≤ ~120–150 lines of high-signal content; long templates in `reference.md` (or `references/*.md`).
@@ -95,7 +97,7 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 ## Token strategy
 
 - **`SKILL.md`:** Frontmatter + when-to-use + state machine + interop table + paths + “read `reference.md` for templates and Phase 0 contract.”
-- **`reference.md`:** Full roadmap template (with status table), **status transition rules** (when to set `spec`, `plan`, `approved`, `in-review`, `merged`, `blocked`), Approval Ask variants (including **roadmap OK**), optional Visual column rules, mid-phase scope change summary (optional pointer to v1), Phase 0 / per-phase brainstorming preambles.
+- **`reference.md`:** Roadmap document contract + **status transition rules**; slot or minimal example for the **roadmap table** (author may paste the full template later), Approval Ask variants (including **roadmap OK**), optional Visual column rules, mid-phase scope change summary (optional pointer to v1), Phase 0 / per-phase brainstorming preambles.
 
 ---
 
@@ -125,6 +127,7 @@ The existing `phase-driven-development` skill is long to load and overlaps prose
 - **Consistency:** Phase 0 avoids full-feature writing-plans; per-phase restores normal superpowers flow.
 - **Scope:** Single skill + reference; roadmap status is **owned** by PDD; optional todo-file rituals remain out of scope (non-goals).
 - **Ambiguity:** Roadmap approval is explicit in chat; optional dated line in Phase Notes if the template includes it.
+- **Implementation (2026-05-04):** `pdd/SKILL.md`, `pdd/reference.md` added; minimal roadmap table in `reference.md` (author may replace with full template). Plan: `docs/superpowers/plans/2026-05-04-pdd-skill.md`.
 
 ---
 

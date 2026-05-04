@@ -6,7 +6,8 @@ A small collection of reusable AI-agent rules and skills for software projects. 
 
 | Artifact | Type | Purpose |
 |----------|------|---------|
-| [`phase-driven-development/SKILL.md`](phase-driven-development/SKILL.md) | Claude Code skill | Orchestrates features that qualify for phasing through a brainstorm → spec → plan → approval-gate → implement cycle, with resumable state via a roadmap file and per-phase todos. Delegates each step to [superpowers](https://claude.com/plugins/superpowers) when installed; ships with built-in fallback procedures otherwise. |
+| [`pdd/SKILL.md`](pdd/SKILL.md) | Claude Code skill | **PDD (v2)** — roadmap-first phasing: brainstorm roadmap → explicit **roadmap OK** → per-phase brainstorm → spec → `writing-plans` → implement; **updates roadmap status** each phase. Delegates to [superpowers](https://claude.com/plugins/superpowers). Pair with [`pdd/reference.md`](pdd/reference.md). |
+| [`phase-driven-development/SKILL.md`](phase-driven-development/SKILL.md) | Claude Code skill | **v1** — Full phase cycle with resumable roadmap **and** optional per-phase todos / bookkeeping. Same superpowers delegation pattern; use when you want todo-file rituals. |
 | [`SELF-MAINTAIN-DOC-PROMPT.MD`](SELF-MAINTAIN-DOC-PROMPT.MD) | Agent prompt | Bootstraps a self-maintaining docs system in any repo. Paste into your agent at the project root and follow the flow. |
 | [`QA_RULES.md`](QA_RULES.md) | Rule file | Strict senior-QA review protocol — code quality, correctness, security, maintainability. Loaded as persistent rules via `CLAUDE.md` import. |
 
@@ -235,6 +236,9 @@ Re-run the same `curl` command to pull the latest version. To pin to a specific 
 oh-my-agent/
 ├── README.md
 ├── LICENSE
+├── pdd/
+│   ├── SKILL.md
+│   └── reference.md
 ├── phase-driven-development/
 │   └── SKILL.md
 ├── SELF-MAINTAIN-DOC-PROMPT.MD
