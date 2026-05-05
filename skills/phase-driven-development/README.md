@@ -26,7 +26,8 @@ It is **stack-agnostic** and delegates heavy lifting to the [Superpowers](https:
 - **Verbatim gates** — Copy-paste **roadmap OK** and **plan approval** prompts, plus **gate equivalence** (e.g. `yes` / `lgtm` / `proceed` where appropriate).
 - **Sequential phases** — Next phase only after the current one is **merged** and the roadmap row is updated.
 - **Bounded spec review** — Up to **three** revision rounds per phase, then escalate (narrow scope, split phase, or pause).
-- **Failure handling** — Retry-once for planning tools; rules for vague users, abort, and blocked states.
+- **Synchronous roadmap (G7)** — After each spec, plan, approval, PR, and merge, the roadmap row is updated **in the same turn**—not fixed retroactively when someone notices.
+- **Failure handling** — Retry-once for planning tools; rules for vague users, abort, blocked states, and **stale roadmap** (must correct before continuing).
 - **Optional progress tracking** — Live checklists derived from the **approved** plan, only if the user opted in on the roadmap.
 
 Artifacts live under predictable paths: roadmap at `docs/roadmaps/`, specs/plans under `docs/superpowers/`, optional todos under `docs/roadmaps/<feature>/`. See [`SKILL.md`](SKILL.md) for the normative naming table.

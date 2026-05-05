@@ -60,13 +60,15 @@ Present the roadmap path and a short summary (phases, order, dependencies). Then
 
 For the **active** phase row in `docs/roadmaps/<feature>-roadmap.md`:
 
+**Timing:** Apply each transition **in the same turn** the underlying event happens (spec file on disk, plan file on disk, user approval in chat, PR URL exists, merge completes). Do **not** batch roadmap edits “for later” or fix the table only after the user notices—see **G7 — roadmap updates are synchronous** in [`SKILL.md`](SKILL.md).
+
 1. When the phase **spec** file is written → set Status to **`spec`** (and Spec link if column exists).
 2. When **`writing-plans`** finishes for that phase → **`plan`** (Plan link).
 3. When the user **approves** implementation after the plan approval ask → **`approved`**.
 4. When a **PR** is opened → **`in-review`** (PR link).
 5. When the PR **merges** → **`merged`**, set **Updated** date, ensure Spec / Plan / PR columns are filled if your table has them.
 
-**Minimum:** after **every** phase merge, the roadmap **must** reflect **`merged`** for that phase and current **Updated** date. Prefer updating at each step above so the table never lies.
+**Minimum:** after **every** phase merge, the roadmap **must** reflect **`merged`** for that phase and current **Updated** date. Updating at **each** step above is **required** so the table never lies.
 
 ---
 

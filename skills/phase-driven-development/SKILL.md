@@ -18,6 +18,20 @@ PDD splits large work into **phases**. First pass produces only a **roadmap** do
 
 **Core ideas:** Roadmap before specs; **no** whole-feature `writing-plans` after the roadmap brainstorm; **explicit** gates; **G7:** keep `docs/roadmaps/<feature>-roadmap.md` status rows truthful through each transition and **after every phase merge**.
 
+### G7 — roadmap updates are synchronous (non-negotiable)
+
+Do **not** treat the roadmap as something you fix later. After each artifact below exists on disk, **update the active phase row in the roadmap in the same turn** (before chatting further, opening a PR, or starting the next PDD step):
+
+| Event | Roadmap action (see [`reference.md`](reference.md) Transition rules) |
+|--------|------------------------------------------------------------------------|
+| Phase **spec** file written | Status **`spec`**, Spec link/column set |
+| **`writing-plans`** finishes for that phase | Status **`plan`**, Plan link/column set |
+| User **approves** plan (plan approval gate) | **`approved`** |
+| **PR** opened | **`in-review`**, PR link |
+| **PR** merged | **`merged`**, **Updated** date, columns consistent |
+
+If you realize the roadmap is stale (e.g. spec/plan files exist but Status still says `planned`), **correct the roadmap before doing anything else**—do not defer with “I’ll fix it later.”
+
 **Optional progress files:** The user may opt in to per-phase `phase-<N>-todos.md` files (see below) for a live implementation checklist. **Before** you run Phase 0 brainstorming, **ask** whether they want this; record the answer on the roadmap so later work does not create todo files if they declined.
 
 **Before Phase 0 and whenever updating roadmap status:** read [`reference.md`](reference.md) for verbatim prompts, G7 transitions, roadmap template, and **mid-phase scope** rules.
@@ -70,15 +84,15 @@ If `docs/roadmaps/` is missing, **create** it before writing the roadmap.
 3. **Phase 0 — Roadmap** — `superpowers:brainstorming` with **Phase 0 contract** ([`reference.md`](reference.md)): output **only** `docs/roadmaps/<feature>-roadmap.md`, including the **Progress tracking** line (enabled or declined). **Do not** invoke `writing-plans` for the entire feature here. **Do not** write per-phase design specs yet.
 4. **Roadmap OK gate** — Present roadmap path + summary. Ask the **roadmap OK** question verbatim ([`reference.md`](reference.md)). **Wait.** Treat approval per **Gate equivalence** in [`reference.md`](reference.md). No Phase 1 spec work until approved (or you revise, re-ask, and user approves).
 5. **For each phase (sequential)**  
-   - **Spec:** `superpowers:brainstorming` for **this phase only** → spec path under **Canonical paths**. Optional visuals **only** if the user requested ([`reference.md`](reference.md)).  
-   - **Spec review** — User reviews the spec file; revise **up to 3 rounds** per phase. If still not approved, **stop** and ask whether to narrow scope, split the phase, or pause PDD.  
-   - **Plan:** `superpowers:writing-plans` → plan path under **Canonical paths**.  
-   - **Plan approval** — Post Approval Ask ([`reference.md`](reference.md)); wait for explicit approval per **Gate equivalence**.  
+   - **Spec:** `superpowers:brainstorming` for **this phase only** → spec path under **Canonical paths**. **Immediately** apply G7: set phase row to **`spec`** and record the spec link ([`reference.md`](reference.md)). Optional visuals **only** if the user requested ([`reference.md`](reference.md)).  
+   - **Spec review** — User reviews the spec file; revise **up to 3 rounds** per phase. On each revision that changes the spec file, keep the roadmap Spec link accurate. If still not approved, **stop** and ask whether to narrow scope, split the phase, or pause PDD.  
+   - **Plan:** `superpowers:writing-plans` → plan path under **Canonical paths**. **Immediately** apply G7: set phase row to **`plan`** and record the plan link—**before** posting the plan approval ask.  
+   - **Plan approval** — Post Approval Ask ([`reference.md`](reference.md)); wait for explicit approval per **Gate equivalence**. After approval, set Status to **`approved`** (G7).  
    - **Optional todos file** — If progress tracking is **enabled** on the roadmap: after the user approves the phase plan, create or refresh `docs/roadmaps/<feature>/phase-<N>-todos.md` — **sections and tasks mirror the approved plan** (same order and granularity as the plan’s implementation tasks); use checkboxes and brief notes; **update during implementation** (check off, note blockers). If progress tracking is **declined** on the roadmap, do **not** create `phase-*-todos.md`.  
    - **Implement** — TDD / `executing-plans` / `subagent-driven-development` per project norms; keep `phase-<N>-todos.md` in sync if enabled. If scope drifts, follow **Mid-phase scope** in [`reference.md`](reference.md); do not silently expand.  
+   - **PR opened** — When the phase PR exists, **immediately** set roadmap Status to **`in-review`** and record the PR link (G7)—same turn, before asking for review-only chatter about something else.  
    - **Verify** — `superpowers:verification-before-completion`, then `superpowers:requesting-code-review`, before claiming done.  
    - **Merge** — `finishing-a-development-branch`; then **immediately** update the roadmap row for this phase (**merged**, PR link if column exists, `Updated`, spec/plan links).  
-   - **Advance roadmap row during the phase** — When spec exists, plan exists, user approved plan, PR open — set Status per [`reference.md`](reference.md) transition rules.  
    - **Phase completion signal (recommended)** — After merge, output one line: `PDD phase <N> complete: roadmap=<path> pr=<url-or-none>`  
 6. **Next phase** — Only after current phase is **merged** and roadmap reflects it.
 
@@ -92,6 +106,7 @@ On failure while **implementing**: **`superpowers:systematic-debugging`** before
 | User is vague on a gate | Ask one clarifying question: approve as-is **vs** list edits |
 | User says pause / stop / abandon phase or PDD | Stop implementation; set roadmap row to **`blocked`** or add a truthful note; do **not** start the next phase |
 | Planning-step error (tool/skill failure before code) | Same retry-once rule; escalate to user with what failed |
+| Roadmap row **out of sync** (spec/plan/PR exists but Status or links wrong) | **Stop.** Update `docs/roadmaps/<feature>-roadmap.md` to match reality **before** the next chat reply or tool step |
 
 ## Skill interop
 
@@ -100,13 +115,13 @@ On failure while **implementing**: **`superpowers:systematic-debugging`** before
 | Progress preference | **PDD** | Ask before Phase 0; record on roadmap |
 | Roadmap | `superpowers:brainstorming` (Phase 0) | `docs/roadmaps/<feature>-roadmap.md` |
 | Roadmap gate | **PDD** | User approval (see Gate equivalence) |
-| Phase spec | `superpowers:brainstorming` | `docs/superpowers/specs/...-design.md` |
-| Phase plan | `superpowers:writing-plans` | `docs/superpowers/plans/...md` |
+| Phase spec | `superpowers:brainstorming` | Spec file + **G7 → `spec`** on roadmap **same turn** |
+| Phase plan | `superpowers:writing-plans` | Plan file + **G7 → `plan`** on roadmap **same turn** |
 | Phase todos (optional) | **PDD** | `docs/roadmaps/<feature>/phase-<N>-todos.md` if enabled |
 | Implement | TDD / `executing-plans` / `subagent-driven-development` | Code |
 | Verify | `superpowers:verification-before-completion`, `superpowers:requesting-code-review` | Evidence |
 | Merge | `finishing-a-development-branch` | PR merged |
-| Roadmap status | **PDD (required)** | Update roadmap file on transitions + after each merge |
+| Roadmap status | **PDD (required)** | **Synchronous G7** on each transition; never batch or defer |
 | Debug | `superpowers:systematic-debugging` | — |
 
 ## Rules (checklist)
@@ -114,7 +129,7 @@ On failure while **implementing**: **`superpowers:systematic-debugging`** before
 - [ ] **Before Phase 0:** asked whether to use per-phase `phase-<N>-todos.md` progress files; roadmap records **Progress tracking: enabled** or **declined**.
 - [ ] Phase 0 delivers **roadmap file only** — not the whole-feature spec, not `writing-plans` for the whole feature.
 - [ ] **Roadmap approval** received before Phase 1 spec brainstorming.
-- [ ] **Roadmap file** status table updated when phase advances (`spec` → `plan` → `approved` → `in-review` → `merged`) and **after each merge**.
+- [ ] **Roadmap file** updated **in the same turn as** each artifact: **`spec`** when spec file exists; **`plan`** when plan exists; **`approved`** after plan approval; **`in-review`** when PR opens; **`merged`** after merge (**G7**—not retroactive cleanup).
 - [ ] **One phase at a time** — next phase only after merge + roadmap updated.
 - [ ] **No code** until user approves the **phase plan** (not just “read the plan”).
 - [ ] Optional **visuals** only when the user asked.
