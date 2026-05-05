@@ -67,7 +67,7 @@ Steps you must perform:
    - If the instruction file does not exist, create it with the import line.
 
 6. Verify each file:
-   - Both SKILL.md and reference.md exist under `phase-driven-development/` with YAML frontmatter on SKILL.md
+   - Both SKILL.md and reference.md exist under `phase-driven-development/` with YAML frontmatter on SKILL.md (`name: phase-driven-development`)
    - qa-rules.md is non-empty
    - Instruction file contains the import line
 
@@ -122,7 +122,7 @@ curl -fsSL https://raw.githubusercontent.com/yourjhay/oh-my-agent/main/skills/ph
 | Per-project | `.opencode/skills/phase-driven-development/` |
 
 **Verify:**
-- Claude Code: `pdd` / phase-driven skill should appear where your harness lists skills.
+- Claude Code: `phase-driven-development` (PDD) should appear where your harness lists skills.
 - opencode: the `skill` tool should list it when configured.
 
 #### Recommended companion: `superpowers`

@@ -37,6 +37,8 @@ Present the roadmap path and a short summary (phases, order, dependencies). Then
 
 **Wait.** Do not start Phase 1 `superpowers:brainstorming` for a phase spec until the user responds with roadmap OK (possibly after edits).
 
+**Gate equivalence (counts as roadmap approval):** explicit phrase **roadmap OK**, or clear approval such as **yes**, **approved**, **lgtm**, **proceed**, **looks good**, **ship it** (after any requested edits are applied). If ambiguous, ask one binary follow-up: proceed as-is vs list changes.
+
 ---
 
 ## Status vocabulary
@@ -85,6 +87,8 @@ Ready to proceed with Phase <N> implementation? (yes / changes / no)
 ```
 
 **Wait** for explicit **yes** (or equivalent) before writing implementation code for that phase.
+
+**Gate equivalence (counts as plan approval):** **yes**, **approved**, **lgtm**, **proceed**, **ship it**, or equivalent explicit consent. Do **not** treat “I read it” as approval. If ambiguous, ask one binary follow-up.
 
 ---
 
