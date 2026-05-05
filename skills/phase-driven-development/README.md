@@ -49,6 +49,30 @@ Qualify feature → Ask todo-files preference → Phase 0: roadmap ONLY
 
 ---
 
+## Sample usage
+
+**Scenario:** Usage-based billing—new persistence, APIs, and UI (multiple surfaces; good fit for PDD).
+
+**You might say:**  
+“We’re building usage-based billing: Stripe sync, invoice tables, API, then dashboard. Use PDD.”
+
+**What the agent does (compressed):**
+
+1. Confirms the work qualifies for PDD (several criteria apply).
+2. Asks whether you want per-phase checklist files (`phase-<N>-todos.md`); you answer **yes** or **no**—that choice is recorded on the roadmap.
+3. **Phase 0 only:** writes `docs/roadmaps/usage-billing-roadmap.md` (phases might be e.g. schema + sync → API → UI). No whole-feature plan yet.
+4. **Roadmap gate:** shares path + short summary; you reply **roadmap OK**, **yes**, **lgtm**, or equivalent—then Phase 1 spec work may start.
+5. **Phase 1:** brainstorm → `docs/superpowers/specs/<date>-usage-billing-phase1-design.md` → you review the spec → `writing-plans` → **plan approval** → if todos were enabled, `docs/roadmaps/usage-billing/phase-1-todos.md` mirrors the approved plan → implement → verify → merge → roadmap row marked **merged**.
+6. **Later phases:** repeat the same loop. The next phase’s spec does **not** start until the prior phase is merged and the roadmap reflects it.
+
+**Optional completion line** (recommended in [`SKILL.md`](SKILL.md)):
+
+```text
+PDD phase 1 complete: roadmap=docs/roadmaps/usage-billing-roadmap.md pr=https://github.com/org/repo/pull/123
+```
+
+---
+
 ## What’s in this package
 
 | File | Purpose |
