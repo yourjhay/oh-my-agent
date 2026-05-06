@@ -20,6 +20,18 @@ It is **stack-agnostic** and delegates heavy lifting to the [Superpowers](https:
 
 ---
 
+## Advantages of using this skill
+
+- **Shared picture early** — You agree on phases and order *before* deep specs, so rework from “wrong shape” discoveries drops.
+- **Explicit human checkpoints** — Roadmap gate and plan approval reduce silent assumptions; the agent has to align with you at predictable moments.
+- **Auditable trail** — Roadmap + per-phase specs/plans (and optional todo files) make status and history legible for you, reviewers, and future agents.
+- **Honest progress** — Synchronous roadmap (G7) ties written artifacts to table state, so “where are we really?” is answerable from one file.
+- **Right-sized activation** — When / when-not rules steer PDD at multi-surface work and away from one-line fixes, keeping sessions focused.
+- **Composable with Superpowers** — You keep using familiar skills (`brainstorming`, `writing-plans`, TDD, verification, merge) instead of a second, parallel methodology.
+- **Stack-agnostic** — Same workflow for web, backend, data, or mixed projects; only paths and repo conventions change.
+
+---
+
 ## Feature highlights
 
 - **Qualification rules** — Clear **when to use** and **when not to** (so the skill doesn’t fire on tiny fixes).
@@ -71,6 +83,24 @@ Qualify feature → Ask todo-files preference → Phase 0: roadmap ONLY
 ```text
 PDD phase 1 complete: roadmap=docs/roadmaps/usage-billing-roadmap.md pr=https://github.com/org/repo/pull/123
 ```
+
+---
+
+## Context footprint (reference)
+
+Rough sizes for estimating how much may land in model context when these files are loaded verbatim. Many harnesses inject [`SKILL.md`](SKILL.md) first and pull in [`reference.md`](reference.md) only when instructed.
+
+### Rough size
+
+| File | Bytes | Ballpark tokens* |
+|------|-------:|-----------------:|
+| [`SKILL.md`](SKILL.md) | ~12k | ~3.0k |
+| [`reference.md`](reference.md) | ~9k | ~2.3k |
+| **Total** | **~21k** | **~5–5.5k** |
+
+\*Very rough (≈4 characters per token for English prose). Real tokenization varies by model and tokenizer. Byte counts move as files edit—re-measure locally with:
+
+`wc -c skills/phase-driven-development/SKILL.md skills/phase-driven-development/reference.md`
 
 ---
 
